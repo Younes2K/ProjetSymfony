@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Auteurs{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Liste des Auteurs</h1>
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Auteur</th>
+                <th>String</th>
+                <th>Email</th>
+                <th>Bio</th>
+                <th>Créé le</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for auteur in auteurs %}
+            <tr>
+                <td>{{ auteur.id }}</td>
+                <td>{{ auteur.Auteur }}</td>
+                <td>{{ auteur.string }}</td>
+                <td>{{ auteur.email }}</td>
+                <td>{{ auteur.bio }}</td>
+                <td>{{ auteur.CreatedAt ? auteur.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_auteur_show', {'id': auteur.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                    <a href="{{ path('app_auteur_edit', {'id': auteur.id}) }}" class="btn btn-warning btn-sm">Éditer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7" class="text-center">Aucun auteur trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_auteur_new') }}" class="btn btn-success mt-3">Créer un nouvel Auteur</a>
+{% endblock %}

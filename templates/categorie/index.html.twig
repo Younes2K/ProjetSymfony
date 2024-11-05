@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Catégories{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Liste des Catégories</h1>
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>CreatedAt</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.id }}</td>
+                <td>{{ categorie.name }}</td>
+                <td>{{ categorie.description }}</td>
+                <td>{{ categorie.createdAt ? categorie.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_categorie_show', {'id': categorie.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                    <a href="{{ path('app_categorie_edit', {'id': categorie.id}) }}" class="btn btn-warning btn-sm">Éditer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5" class="text-center">Aucune catégorie trouvée</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_categorie_new') }}" class="btn btn-success mt-3">Créer une nouvelle Catégorie</a>
+{% endblock %}

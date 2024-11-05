@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'Auteur{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Détails de l'Auteur</h1>
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ auteur.id }}</td>
+            </tr>
+            <tr>
+                <th>Auteur</th>
+                <td>{{ auteur.Auteur }}</td>
+            </tr>
+            <tr>
+                <th>String</th>
+                <td>{{ auteur.string }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ auteur.email }}</td>
+            </tr>
+            <tr>
+                <th>Bio</th>
+                <td>{{ auteur.bio }}</td>
+            </tr>
+            <tr>
+                <th>Créé le</th>
+                <td>{{ auteur.CreatedAt ? auteur.CreatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        <a href="{{ path('app_auteur_index') }}" class="btn btn-primary">Retour à la liste</a>
+        <a href="{{ path('app_auteur_edit', {'id': auteur.id}) }}" class="btn btn-warning">Éditer</a>
+        <form method="post" action="{{ path('app_auteur_delete', {'id': auteur.id}) }}" style="display:inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet auteur ?');">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ auteur.id) }}">
+            <button class="btn btn-danger">Supprimer</button>
+        </form>
+    </div>
+{% endblock %}
